@@ -14,3 +14,11 @@ texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="Node" type="Node" parent="."]
+
+[node name="rayLeft" type="RayCast2D" parent="Node"]
+cast_to = Vector2( -5, 0 )
+
+[node name="rayRight" type="RayCast2D" parent="Node"]
+cast_to = Vector2( 5, 0 )

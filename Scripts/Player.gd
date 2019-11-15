@@ -33,5 +33,14 @@ func _physics_process(delta):
 		gravityScale = 0.5
 	velocity.y += gravity * gravityScale * delta
 	
+	# Calculate walljumps
+	
+	
 	# Commit new velocity
 	velocity = move_and_slide(velocity, Vector2(0, -1))
+	
+func _check_rays(wall_rays):
+	for ray in wall_rays.get_children():
+		if ray.is_colliding():
+			return true
+	return false
