@@ -23,25 +23,13 @@ func _physics_process(delta):
 		velocity.x *= slideFactor
 		
 	# Calcualte Y movement
-	var gravityScale = 1
-	isFalling = velocity.y > 0
-	if is_on_floor():
-		if Input.is_action_just_pressed("ui_up"):
-			velocity.y = -jumpHeight
-		# Let player "float" if holding up
-		elif Input.is_action_pressed("ui_up") and isFalling:
-			gravityScale = 0.5
-		# Calculate walljumps
-	elif Input.is_action_pressed("ui_left"):
-		if $wallRays/rayLeft.is_colliding():
-			if Input.is_action_just_pressed("ui_up"):
-				velocity.y -= jumpHeight
-				velocity.x += accellearation
-		if $wallRays/rayRight.is_colliding():
-			if Input.is_action_just_pressed("ui_up"):
-				velocity.y -= jumpHeight
-				velocity.x -= accellearation
-	velocity.y += gravity * gravityScale * delta
+	# Jumping
+	if Input.is_action_just_pressed("ui_up"):
+		if is_on_floor():
+			velocity.y -= jumpHeight
+		elif _check_rays($wallRays):
+			_walljump()
+	velocity.y += gravity * delta
 		
 	
 	# Commit new velocity
@@ -50,5 +38,13 @@ func _physics_process(delta):
 func _check_rays(wall_rays):
 	for ray in wall_rays.get_children():
 		if ray.is_colliding():
+			print("Ray hit!")
 			return true
 	return false
+
+func _walljump():
+	velocity.y -= jumpHeight
+	if $wallRays/rayLeft.is_colliding():
+		velocity.x += accellearation
+	else:
+		velocity.x -= accellearation
