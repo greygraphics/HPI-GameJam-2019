@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7.35284, 2.40995 )
 
-[node name="Platform" type="RigidBody2D"]
+[node name="Platform" type="KinematicBody2D"]
 
 [node name="collider" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )

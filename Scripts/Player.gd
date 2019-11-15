@@ -1,15 +1,13 @@
-extends RigidBody2D
+extends KinematicBody2D
 
-var speed : float = 1;
+export var speed : float = 1
+export var gravity : float = 10
+export var jumpStrength : float = 100
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+var velocity = Vector2()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	linear_velocity.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+func _physics_process(delta):
+	velocity.y += delta * gravity;
+	velocity.x += Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	
-func _input(event):
-	print("Input")
-	print(Input.get_action_strength("ui_left"))
+	move_and_slide(velocity, Vector2(0,-1))
