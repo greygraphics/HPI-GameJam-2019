@@ -15,3 +15,6 @@ tile_data = PoolIntArray( -196604, 1, 0, -196603, 1, 0, -131070, 1, 0, -131069, 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 68.2575, 48.7192 )
 speed = 8.0
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
