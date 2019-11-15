@@ -16,7 +16,14 @@ _global_script_class_icons={
 [application]
 
 config/name="HPI GameJam"
+run/main_scene="res://Scenes/Main.tscn"
 config/icon="res://icon.png"
+
+[display]
+
+window/size/width=512
+window/size/height=512
+window/size/resizable=false
 
 [rendering]
 

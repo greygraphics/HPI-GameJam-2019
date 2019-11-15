@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Platform_Red.png-987d8843d48e49f9f69be04ba1d66e9e.stex"
+path="res://.import/tilesheet_complete.png-1d9473adc5060b206eaa387e73f9d0ee.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Platform_Red.png"
-dest_files=[ "res://.import/Platform_Red.png-987d8843d48e49f9f69be04ba1d66e9e.stex" ]
+source_file="res://Textures/tilesheet_complete.png"
+dest_files=[ "res://.import/tilesheet_complete.png-1d9473adc5060b206eaa387e73f9d0ee.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
