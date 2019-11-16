@@ -49,7 +49,7 @@ func _physics_process(delta):
 	# hover
 
 	print(gravityScale)
-	if _jump() or _doubleJump() or _walljump():
+	if _jump() or _walljump() or _doubleJump():
 		print("No gravity!")
 	else:
 		velocity.y += gravityScale * GRAVITY
