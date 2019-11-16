@@ -8,6 +8,7 @@ export var JUMP_HEIGHT : float = 16
 export var JUMP_SPEED_FACTOR : float = 0.2
 export var WALLSLIDE_FACTOR : float = 0.5
 export var GRAVITY : float = 8
+export var WALL_JUMP_SPEED : Vector2 = Vector2()
 
 enum STATES {
 	FLOOR,
@@ -77,16 +78,17 @@ func _wallslide():
 	return 1
 	
 func _jump():
-	if !Input.is_action_just_pressed("ui_up"):
+	if !Input.is_action_just_pressed("ui_up") or state != STATES.FLOOR:
 		return
-	if state == STATES.FLOOR:
-		state = STATES.AIR
-		velocity.y -= JUMP_HEIGHT
+	state = STATES.AIR
+	velocity.y -= JUMP_HEIGHT
+	$Timer.start()
 	
 func _walljump():
-	if !Input.is_action_just_pressed("ui_up") or state != STATES.WALL:
+	if !Input.is_action_just_pressed("ui_up") or wallDir == 0 or !_canJump():
 		return
-	
+	var dx = WALL_JUMP_SPEED.x * -wallDir
+	velocity += Vector2(dx,-WALL_JUMP_SPEED.y)
 	
 func _updateState():
 	if is_on_floor():
@@ -95,3 +97,6 @@ func _updateState():
 		state = STATES.WALL
 	else:
 		state = STATES.AIR
+		
+func _canJump():
+	return $Timer.is_stopped()

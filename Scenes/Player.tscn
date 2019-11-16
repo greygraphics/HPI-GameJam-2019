@@ -46,3 +46,7 @@ margin_top = -44.4206
 margin_right = 19.5495
 margin_bottom = -4.42062
 text = "Nothing"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true

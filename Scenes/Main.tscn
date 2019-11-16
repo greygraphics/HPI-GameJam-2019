@@ -12,6 +12,7 @@ ACCELLERATION = 4.0
 SLIDE_FACTOR = 0.6
 JUMP_HEIGHT = 200.0
 WALLSLIDE_FACTOR = 0.2
+WALL_JUMP_SPEED = Vector2( 200, 250 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
