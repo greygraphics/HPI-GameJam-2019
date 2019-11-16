@@ -12,3 +12,7 @@ func _setRolling(isRolling):
 	for animation in animations:
 		var animSprite : AnimatedSprite = animation
 		animSprite._set_playing(isRolling)
+		
+func _setWallSlide(isWallSliding):
+	$WheelChair/Dust._set_playing(isWallSliding)
+	$WheelChair/Wheel.scale.x -= 1

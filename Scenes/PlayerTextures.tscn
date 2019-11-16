@@ -88,3 +88,5 @@ frames = SubResource( 3 )
 frame = 7
 speed_scale = 2.0
 playing = true
+
+[node name="Dust" type="Sprite" parent="WheelChair"]

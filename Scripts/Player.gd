@@ -63,6 +63,7 @@ func _updateMoveDir():
 		moveDir -= 1
 	if Input.is_action_pressed("ui_right"):
 		moveDir += 1
+	
 	$Textures._setDirection(moveDir)
 	$Textures._setRolling(moveDir != 0)
 
