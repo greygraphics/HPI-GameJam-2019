@@ -41,18 +41,16 @@ func _physics_process(delta):
 	velocity.x = clamp(velocity.x, -MAX_SPEED, MAX_SPEED)
 	
 	_checkWalls()
-	# Get Y input
-	# jump
-	_jump()
-	_walljump()
-	
 	var gravityScale = 1
 	# wallslide
 	gravityScale *= _wallslide()
 	# hover
-	# apply gravity
+
 	print(gravityScale)
-	velocity.y += gravityScale * GRAVITY
+	if _jump() or _walljump():
+		print("No gravity!")
+	else:
+		velocity.y += gravityScale * GRAVITY
 	
 	# apply movement
 	velocity = move_and_slide(velocity, Vector2.UP)
@@ -81,14 +79,21 @@ func _jump():
 	if !Input.is_action_just_pressed("ui_up") or state != STATES.FLOOR:
 		return
 	state = STATES.AIR
-	velocity.y -= JUMP_HEIGHT
-	$Timer.start()
+	velocity.y = -JUMP_HEIGHT * GRAVITY
+	if $Timer.is_stopped():
+		$Timer.start()
+	return true
 	
 func _walljump():
 	if !Input.is_action_just_pressed("ui_up") or wallDir == 0 or !_canJump():
 		return
 	var dx = WALL_JUMP_SPEED.x * -wallDir
-	velocity += Vector2(dx,-WALL_JUMP_SPEED.y)
+	velocity.x = dx
+	velocity.y = -WALL_JUMP_SPEED.y * GRAVITY
+	
+	if $Timer.is_stopped():
+		$Timer.start()
+	return true
 	
 func _updateState():
 	if is_on_floor():

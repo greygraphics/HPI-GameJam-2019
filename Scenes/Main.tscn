@@ -9,10 +9,12 @@
 position = Vector2( 99.0168, 22.3238 )
 MAX_SPEED = 120.0
 ACCELLERATION = 4.0
+AIR_ACC_FACTOR = 0.7
 SLIDE_FACTOR = 0.6
-JUMP_HEIGHT = 200.0
+JUMP_HEIGHT = 32.0
 WALLSLIDE_FACTOR = 0.2
-WALL_JUMP_SPEED = Vector2( 200, 250 )
+GRAVITY = 4.0
+WALL_JUMP_SPEED = Vector2( 100, 40 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
