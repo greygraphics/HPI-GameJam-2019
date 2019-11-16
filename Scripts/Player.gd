@@ -5,6 +5,7 @@ export var ACCELLERATION : float = 1
 export var AIR_ACC_FACTOR : float = 0.5
 export var SLIDE_FACTOR : float = 0.8
 export var JUMP_HEIGHT : float = 16
+export var JUMP_SPEED_FACTOR : float = 0.2
 export var WALLSLIDE_FACTOR : float = 0.5
 export var GRAVITY : float = 8
 
@@ -19,8 +20,11 @@ var wallDir = 0
 var moveDir = 0
 var state = STATES.FLOOR
 
+func _process(delta):
+	$RichTextLabel.text = STATES.keys()[state]
 
 func _physics_process(delta):
+	_updateState()
 	# Get X Input
 	_updateMoveDir()
 	# Get accelleration factor
@@ -33,6 +37,7 @@ func _physics_process(delta):
 		velocity.x *= SLIDE_FACTOR
 	# Move player on X
 	velocity.x += moveDir * accFactor * ACCELLERATION
+	velocity.x = clamp(velocity.x, -MAX_SPEED, MAX_SPEED)
 	
 	_checkWalls()
 	# Get Y input
@@ -48,8 +53,7 @@ func _physics_process(delta):
 	velocity.y += gravityScale * GRAVITY
 	
 	# apply movement
-	velocity = move_and_slide(velocity, Vector2.DOWN)
-	pass
+	velocity = move_and_slide(velocity, Vector2.UP)
 	
 func _updateMoveDir():
 	moveDir = 0
@@ -72,8 +76,19 @@ func _wallslide():
 	return 1
 	
 func _jump():
-	pass
+	if !Input.is_action_just_pressed("ui_up"):
+		return
+	if state == STATES.FLOOR:
+		state = STATES.AIR
+		velocity.y -= JUMP_HEIGHT + JUMP_SPEED_FACTOR * abs(velocity.x) / MAX_SPEED
 	
 func _walljump():
 	pass
 	
+func _updateState():
+	if is_on_floor():
+		state = STATES.FLOOR
+	elif wallDir != 0:
+		state = STATES.WALL
+	else:
+		state = STATES.AIR
