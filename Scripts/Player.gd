@@ -125,4 +125,4 @@ func _canJump():
 func _animate():
 	$Textures._setDirection(moveDir)
 	$Textures._setRolling(moveDir != 0)
-	$Textures._setWallSlide(state == STATES.WALL and Input.is_action_pressed("ui_up"))
+	$Textures._setWallDirection(wallDir)
