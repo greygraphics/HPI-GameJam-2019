@@ -62,7 +62,7 @@ func matchTile(color: Color):
 			
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	blueprint.load("res://Levels/testlevel1.png")
+	blueprint.load("res://Levels/level2.png")
 	blueprint.lock()
 	var height = blueprint.get_height()
 	var width = blueprint.get_width()

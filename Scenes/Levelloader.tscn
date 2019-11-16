@@ -9,6 +9,7 @@ script = ExtResource( 1 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 30, -14 )
+WALL_JUMP_SPEED = Vector2( 64, 200 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
