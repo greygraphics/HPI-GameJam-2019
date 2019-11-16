@@ -1,40 +1,18 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://Textures/guy/body.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/PlayerTextures.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Textures/guy/head_1.png" type="Texture" id=3]
-[ext_resource path="res://Textures/guy/head_2.png" type="Texture" id=4]
-[ext_resource path="res://Textures/guy/head_3.png" type="Texture" id=5]
-[ext_resource path="res://Textures/guy/head_4.png" type="Texture" id=6]
-[ext_resource path="res://Textures/guy/arm_1.png" type="Texture" id=7]
-[ext_resource path="res://Textures/guy/arm_2.png" type="Texture" id=8]
-[ext_resource path="res://Textures/guy/arm_3.png" type="Texture" id=9]
-[ext_resource path="res://Textures/guy/arm_4.png" type="Texture" id=10]
-[ext_resource path="res://Textures/guy/chair.png" type="Texture" id=11]
-[ext_resource path="res://Textures/guy/armrest.png" type="Texture" id=12]
-[ext_resource path="res://Textures/guy/wheel_1.png" type="Texture" id=13]
-[ext_resource path="res://Textures/guy/wheel_2.png" type="Texture" id=14]
-[ext_resource path="res://Textures/guy/wheel_3.png" type="Texture" id=15]
-[ext_resource path="res://Textures/guy/wheel_4.png" type="Texture" id=16]
-[ext_resource path="res://Textures/guy/wheel_5.png" type="Texture" id=17]
-[ext_resource path="res://Textures/guy/wheel_6.png" type="Texture" id=18]
-[ext_resource path="res://Textures/guy/wheel_7.png" type="Texture" id=19]
-[ext_resource path="res://Textures/guy/wheel_8.png" type="Texture" id=20]
-[ext_resource path="res://Scripts/raycast_report.gd" type="Script" id=21]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 2.02251, 4.07389 )
+extents = Vector2( 4.9, 7.9 )
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 1 )
 
-[node name="Textures" type="Node2D" parent="."]
-
-[node name="Body" type="Sprite" parent="Textures"]
-z_index = -5
-texture = ExtResource( 2 )
+[node name="Textures" parent="." instance=ExtResource( 2 )]
 
 [node name="collider" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -62,10 +40,13 @@ __meta__ = {
 }
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
+anchor_right = 1.0
 margin_left = -20.4505
 margin_top = -44.4206
 margin_right = 19.5495
 margin_bottom = -4.42062
+meta_underlined = false
+tab_size = 0
 text = "Nothing"
 
 [node name="Timer" type="Timer" parent="."]
