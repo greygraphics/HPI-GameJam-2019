@@ -50,6 +50,7 @@ func _physics_process(delta):
 	gravityScale *= _wallslide()
 	# hover
 	# apply gravity
+	print(gravityScale)
 	velocity.y += gravityScale * GRAVITY
 	
 	# apply movement
@@ -71,7 +72,7 @@ func _checkWalls():
 		wallDir += 1
 		
 func _wallslide():
-	if moveDir == wallDir:
+	if moveDir == wallDir and moveDir != 0 and velocity.y > 0:
 		return WALLSLIDE_FACTOR
 	return 1
 	
@@ -80,10 +81,12 @@ func _jump():
 		return
 	if state == STATES.FLOOR:
 		state = STATES.AIR
-		velocity.y -= JUMP_HEIGHT + JUMP_SPEED_FACTOR * abs(velocity.x) / MAX_SPEED
+		velocity.y -= JUMP_HEIGHT
 	
 func _walljump():
-	pass
+	if !Input.is_action_just_pressed("ui_up") or state != STATES.WALL:
+		return
+	
 	
 func _updateState():
 	if is_on_floor():
