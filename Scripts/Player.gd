@@ -1,12 +1,12 @@
 extends KinematicBody2D
 
-export var MAX_SPEED : float = 8
-export var ACCELLERATION : float = 1
-export var AIR_ACC_FACTOR : float = 0.5
-export var SLIDE_FACTOR : float = 0.8
-export var JUMP_HEIGHT : float = 16
+export var MAX_SPEED : float = 120
+export var ACCELLERATION : float = 4
+export var AIR_ACC_FACTOR : float = 0.7
+export var SLIDE_FACTOR : float = 0.5
+export var JUMP_HEIGHT : float = 200
 export var JUMP_SPEED_FACTOR : float = 0.2
-export var WALLSLIDE_FACTOR : float = 0.5
+export var WALLSLIDE_FACTOR : float = 0.1
 export var GRAVITY : float = 8
 export var WALL_JUMP_SPEED : Vector2 = Vector2()
 
@@ -79,7 +79,7 @@ func _jump():
 	if !Input.is_action_just_pressed("ui_up") or state != STATES.FLOOR:
 		return
 	state = STATES.AIR
-	velocity.y = -JUMP_HEIGHT * GRAVITY
+	velocity.y = -JUMP_HEIGHT
 	if $Timer.is_stopped():
 		$Timer.start()
 	return true
@@ -89,7 +89,7 @@ func _walljump():
 		return
 	var dx = WALL_JUMP_SPEED.x * -wallDir
 	velocity.x = dx
-	velocity.y = -WALL_JUMP_SPEED.y * GRAVITY
+	velocity.y = -WALL_JUMP_SPEED.y
 	
 	if $Timer.is_stopped():
 		$Timer.start()

@@ -7,14 +7,8 @@
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 99.0168, 22.3238 )
-MAX_SPEED = 120.0
-ACCELLERATION = 4.0
 AIR_ACC_FACTOR = 0.7
-SLIDE_FACTOR = 0.6
-JUMP_HEIGHT = 32.0
-WALLSLIDE_FACTOR = 0.2
-GRAVITY = 4.0
-WALL_JUMP_SPEED = Vector2( 100, 40 )
+WALL_JUMP_SPEED = Vector2( 64, 100 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
