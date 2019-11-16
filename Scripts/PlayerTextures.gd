@@ -18,7 +18,9 @@ func _setWallDirection(direction):
 	if direction == 0:
 		$WheelChair/Wheel.scale.x = 1
 		$WheelChair/Wheel.speed_scale = wheelSpeed
+		$WheelChair/Dust.hide()
 		return
 	scale.x = -direction
 	$WheelChair/Wheel.scale.x = -1
 	$WheelChair/Wheel.speed_scale = wheelSpeed * 2
+	$WheelChair/Dust.show()
