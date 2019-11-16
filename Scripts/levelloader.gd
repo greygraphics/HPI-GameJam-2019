@@ -3,9 +3,9 @@ extends Node2D
 onready var tilemap = get_node("TileMap")
 onready var blueprint = Image.new()
 # evtl mit RNG + pro Bild fester Seed ersetzen:
-var THRESHOLD_SALT = 0.88 # soll für pseudozufällig deterministische schöne Tiles sorgen 
+const THRESHOLD_SALT = 0.88 # soll für pseudozufällig deterministische schöne Tiles sorgen 
 
-enum {TILE_SOLID1=1, TILE_SOLID2, TILE_SOLID3, TILE_FLOOR_L, TILE_FLOOR_C, TILE_FLOOR_R, TILE_FLOOR_S,  TILE_AIR}
+enum {TILE_SOLID1=1, TILE_SOLID2, TILE_SOLID3, TILE_FLOOR_L, TILE_FLOOR_C, TILE_FLOOR_R, TILE_FLOOR_S,  TILE_PLATFORM_L, TILE_PLATFORM_R, TILE_AIR}
 
 # geht über alle Pixel eines Bildes und settet die Tilemap entsprechend
 func generateLevelFromBlueprint(picture: Image):
