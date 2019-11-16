@@ -1,0 +1,6 @@
+[gd_scene format=2]
+
+[node name="Node2D" type="KinematicBody2D"]
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( 10, 0 )

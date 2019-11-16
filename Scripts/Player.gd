@@ -1,15 +1,60 @@
-extends RigidBody2D
+extends KinematicBody2D
 
-var speed : float = 1;
+export var accellearation : float = 50
+export var maxSpeed : float = 100
+export var slideFactor : float = 0.8
+export var gravity : float = 100
+export var jumpHeight : float = 100
+export var jumpSpeedFactor : float = 0.5
+export var wallJumpSpeed : Vector2 = Vector2()
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+var velocity = Vector2()
+var isFalling = true
+var moveDirection = 0
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	linear_velocity.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+func _physics_process(delta):
+		
+	# Calculate X movement
+	moveDirection = 0
+	var correctedAcc = accellearation * _getXAccFactor()
+	if Input.is_action_pressed("ui_right"):
+		velocity.x = min(velocity.x + correctedAcc, maxSpeed)
+		moveDirection += 1
+	if Input.is_action_pressed("ui_left"):
+		velocity.x = max(velocity.x - correctedAcc, -maxSpeed)
+		moveDirection -= 1
+	if moveDirection == 0:
+		velocity.x *= slideFactor
+		
+	# Calcualte Y movement
+	# Jumping
+	if Input.is_action_just_pressed("ui_up"):
+		if is_on_floor():
+			velocity.y -= jumpHeight + (jumpHeight * abs(velocity.x) / maxSpeed * jumpSpeedFactor)
+		elif _check_rays($wallRays):
+			#_walljump()
+			pass
+	velocity.y += gravity * delta
+		
 	
-func _input(event):
-	print("Input")
-	print(Input.get_action_strength("ui_left"))
+	# Commit new velocity
+	velocity = move_and_slide(velocity, Vector2(0, -1))
+	
+func _check_rays(wall_rays):
+	for ray in wall_rays.get_children():
+		if ray.is_colliding():
+			print("Ray hit!")	
+			return true
+	return false
+
+func _walljump():
+	if $wallRays/rayLeft.is_colliding():
+		velocity += wallJumpSpeed
+	else:
+		velocity += Vector2(-wallJumpSpeed.x, wallJumpSpeed.y)
+		
+func _getXAccFactor():
+	if is_on_floor():
+		return 1
+	else:
+		return 0.1
