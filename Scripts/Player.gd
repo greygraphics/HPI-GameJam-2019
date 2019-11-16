@@ -24,6 +24,7 @@ var state = STATES.FLOOR
 var doubleJumpReady = true
 
 func _process(delta):
+	_animate()
 	$RichTextLabel.text = STATES.keys()[state]
 
 func _physics_process(delta):
