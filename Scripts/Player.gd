@@ -11,6 +11,10 @@ var velocity = Vector2()
 var isFalling = true
 
 func _physics_process(delta):
+
+	if $wallRays/rayLeft.is_colliding():
+		print("Collision left!");
+		
 	# Calculate X movement
 	var hasXInput = false
 	if Input.is_action_pressed("ui_right"):
@@ -38,7 +42,7 @@ func _physics_process(delta):
 func _check_rays(wall_rays):
 	for ray in wall_rays.get_children():
 		if ray.is_colliding():
-			print("Ray hit!")
+			print("Ray hit!")	
 			return true
 	return false
 
