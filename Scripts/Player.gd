@@ -49,7 +49,7 @@ func _physics_process(delta):
 	# hover
 
 	print(gravityScale)
-	if _jump() or _doubleJump() or _walljump():
+	if _jump() or _walljump() or _doubleJump():
 		print("No gravity!")
 	else:
 		velocity.y += gravityScale * GRAVITY
@@ -63,6 +63,7 @@ func _updateMoveDir():
 		moveDir -= 1
 	if Input.is_action_pressed("ui_right"):
 		moveDir += 1
+	
 	$Textures._setDirection(moveDir)
 	$Textures._setRolling(moveDir != 0)
 

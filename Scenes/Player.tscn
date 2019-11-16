@@ -21,17 +21,14 @@ __meta__ = {
 }
 
 [node name="rayLeft" type="RayCast2D" parent="."]
-position = Vector2( -1, 0 )
+position = Vector2( -4.5, 0 )
 enabled = true
 cast_to = Vector2( -4, 0 )
 collision_mask = 2
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="rayRight" type="RayCast2D" parent="."]
-position = Vector2( 1, 0 )
+position = Vector2( 4.5, 0 )
 enabled = true
 cast_to = Vector2( 4, 0 )
 collision_mask = 2
