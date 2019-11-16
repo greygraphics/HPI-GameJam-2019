@@ -22,34 +22,12 @@
 [ext_resource path="res://Textures/guy/wheel_8.png" type="Texture" id=20]
 [ext_resource path="res://Scripts/raycast_report.gd" type="Script" id=21]
 
-[sub_resource type="SpriteFrames" id=1]
-animations = [ {
-"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
-"loop": true,
-"name": "Head",
-"speed": 5.0
-} ]
-
-[sub_resource type="SpriteFrames" id=2]
-animations = [ {
-"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-} ]
-
-[sub_resource type="SpriteFrames" id=4]
-animations = [ {
-"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-} ]
-
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 4.9, 7.9 )
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 2.02251, 4.07389 )
 
 [node name="Player" type="KinematicBody2D"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource( 1 )
 
 [node name="Textures" type="Node2D" parent="."]
@@ -58,52 +36,38 @@ script = ExtResource( 1 )
 z_index = -5
 texture = ExtResource( 2 )
 
-[node name="Head" type="AnimatedSprite" parent="Textures"]
-position = Vector2( 0, -3 )
-z_index = 1
-frames = SubResource( 1 )
-animation = "Head"
-playing = true
-offset = Vector2( 0, -3 )
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="Arms" type="AnimatedSprite" parent="Textures"]
-position = Vector2( -3, -3 )
-frames = SubResource( 2 )
-frame = 1
-offset = Vector2( 2, 3 )
-
-[node name="WheelChair" type="Node2D" parent="Textures"]
-
-[node name="Chair" type="Sprite" parent="Textures/WheelChair"]
-z_index = -100
-z_as_relative = false
-texture = ExtResource( 11 )
-
-[node name="ArmRest" type="Sprite" parent="Textures/WheelChair"]
-z_index = -4
-z_as_relative = false
-texture = ExtResource( 12 )
-
-[node name="Wheel" type="AnimatedSprite" parent="Textures/WheelChair"]
-position = Vector2( -1, 4 )
-z_index = -3
-z_as_relative = false
-frames = SubResource( 4 )
-speed_scale = 1.5
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 3 )
-
-[node name="wallRays" type="Node2D" parent="."]
-visible = false
-
-[node name="rayLeft" type="RayCast2D" parent="wallRays"]
-position = Vector2( -2.3, 0 )
+[node name="rayLeft" type="RayCast2D" parent="."]
+position = Vector2( -1, 0 )
 enabled = true
-cast_to = Vector2( -2, 0 )
-script = ExtResource( 21 )
+cast_to = Vector2( -4, 0 )
+collision_mask = 2
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="rayRight" type="RayCast2D" parent="wallRays"]
-position = Vector2( 2.3, 0 )
+[node name="rayRight" type="RayCast2D" parent="."]
+position = Vector2( 1, 0 )
 enabled = true
-cast_to = Vector2( 1, 0 )
+cast_to = Vector2( 4, 0 )
+collision_mask = 2
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = -20.4505
+margin_top = -44.4206
+margin_right = 19.5495
+margin_bottom = -4.42062
+text = "Nothing"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
