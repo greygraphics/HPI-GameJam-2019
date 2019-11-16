@@ -22,7 +22,6 @@ shape = SubResource( 1 )
 [node name="rayLeft" type="RayCast2D" parent="wallRays"]
 position = Vector2( -2.3, 0 )
 enabled = true
-exclude_parent = false
 cast_to = Vector2( -2, 0 )
 script = ExtResource( 3 )
 
