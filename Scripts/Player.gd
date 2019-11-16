@@ -7,14 +7,16 @@ export var gravity : float = 100
 export var jumpHeight : float = 100
 export var jumpSpeedFactor : float = 0.5
 export var wallJumpSpeed : Vector2 = Vector2()
+export var wallSlideBoost : float = 50
+
 
 var velocity = Vector2()
 var isFalling = true
 var moveDirection = 0
 var wallDir = 0
 
-onready var leftRay = $collider/rayLeft
-onready var rightRay = $collider/rayRight
+onready var leftRay = $rayLeft
+onready var rightRay = $rayRight
 
 
 
@@ -38,7 +40,14 @@ func _physics_process(delta):
 			velocity.y -= jumpHeight + (jumpHeight * abs(velocity.x) / maxSpeed * jumpSpeedFactor)
 		elif _check_rays():
 			_walljump()
-	velocity.y += gravity * delta
+	
+	# Calculate wall slide
+	if wallDir != 0:
+		_wallslide()
+	
+	
+	
+	velocity.y += gravity
 		
 	
 	# Commit new velocity
@@ -51,11 +60,20 @@ func _check_rays():
 		return true
 	if rightRay.is_colliding():
 		wallDir += 1
-		return false
+		return true
+	return false
 
 func _walljump():
 	print("Walljump")
 	velocity += Vector2(wallJumpSpeed.x * wallDir, wallJumpSpeed.y)
+	
+func _wallslide():
+	if Input.is_action_pressed("ui_left") and wallDir < 0:
+		velocity.y -= wallSlideBoost
+	if Input.is_action_pressed("ui_right") and wallDir > 0:
+		velocity.y -= wallSlideBoost
+	
+	
 		
 func _getXAccFactor():
 	if is_on_floor():

@@ -1,6 +1,6 @@
 extends RayCast2D
 
-func _physics_process(delta):
+func _process(delta):
 	if is_colliding():
-		#print("Is colliding!")
+		print("Is colliding!")
 		pass
