@@ -5,7 +5,7 @@
 [ext_resource path="res://Scripts/raycast_report.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 2.33256, 3.8197 )
+extents = Vector2( 2.45236, 3.8197 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -14,15 +14,19 @@ script = ExtResource( 1 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 1 )
 
-[node name="wallRays" type="Node" parent="."]
+[node name="wallRays" type="Node2D" parent="."]
 
 [node name="rayLeft" type="RayCast2D" parent="wallRays"]
+position = Vector2( -2.3, 0 )
 enabled = true
-cast_to = Vector2( -53.78, 0 )
+exclude_parent = false
+cast_to = Vector2( -2, 0 )
 script = ExtResource( 3 )
 
 [node name="rayRight" type="RayCast2D" parent="wallRays"]
+position = Vector2( 2.3, 0 )
 enabled = true
-cast_to = Vector2( 5, 0 )
+cast_to = Vector2( 1, 0 )
