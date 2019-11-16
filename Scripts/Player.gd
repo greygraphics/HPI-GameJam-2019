@@ -64,9 +64,7 @@ func _updateMoveDir():
 		moveDir -= 1
 	if Input.is_action_pressed("ui_right"):
 		moveDir += 1
-	
-	$Textures._setDirection(moveDir)
-	$Textures._setRolling(moveDir != 0)
+
 
 
 func _checkWalls():
@@ -127,3 +125,4 @@ func _canJump():
 func _animate():
 	$Textures._setDirection(moveDir)
 	$Textures._setRolling(moveDir != 0)
+	$Textures._setWallSlide(state == STATES.WALL and Input.is_action_pressed("ui_up"))
