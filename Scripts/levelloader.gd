@@ -1,14 +1,11 @@
 extends Node
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 onready var tilemap = get_node("TileMap")
 var blueprint: Image
 # evtl mit RNG + pro Bild fester Seed ersetzen:
 var THRESHOLD_SALT = 0.88 # soll für pseudozufällig deterministische schöne Tiles sorgen 
 
-enum {TILE_FLOOR_L, TILE_FLOOR_C, TILE_FLOOR_R, TILE_FLOOR_S, TILE_SOLID1, TILE_SOLID2, TILE_SOLID3}
+enum {TILE_FLOOR_L, TILE_FLOOR_C, TILE_FLOOR_R, TILE_FLOOR_S, TILE_SOLID1, TILE_SOLID2, TILE_SOLID3, TILE_AIR=999}
 
 # geht über alle Pixel eines Bildes und settet die Tilemap entsprechend
 func generateLevelFromBlueprint(picture):
@@ -16,8 +13,8 @@ func generateLevelFromBlueprint(picture):
 	var img_width = picture.get_width()
 	var current_pxl: Color
 	var tile: int
-	for j in img_height:
-		for i in img_width:
+	for j in range(img_height):
+		for i in range(img_width):
 			current_pxl = picture.get_pixel(i,j)
 			tile = matchTile(current_pxl)
 			if tile == NAN:
@@ -54,8 +51,10 @@ func postprocessingLevel(height: int, width: int):
 # ordnet einem Farbwert ein Tile zu
 func matchTile(color: Color):
 	match color:
-		Color.brown:
+		Color.black:
 			return TILE_FLOOR_C
+		Color(0,0,0,0):
+			return TILE_AIR
 		_:
 			return NAN
 
@@ -64,7 +63,10 @@ func matchTile(color: Color):
 			
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	blueprint = load("res://Levels/testlevel1.png")
+	blueprint.lock()
+	generateLevelFromBlueprint(blueprint)
+	blueprint.unlock()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
