@@ -24,6 +24,7 @@ var state = STATES.FLOOR
 var doubleJumpReady = true
 
 func _process(delta):
+	_animate()
 	$RichTextLabel.text = STATES.keys()[state]
 
 func _physics_process(delta):
@@ -122,3 +123,7 @@ func _updateState():
 		
 func _canJump():
 	return $Timer.is_stopped()
+	
+func _animate():
+	$Textures._setDirection(moveDir)
+	$Textures._setRolling(moveDir != 0)
