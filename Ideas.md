@@ -1,5 +1,8 @@
 ## Movement:
 
+- Unlimited Walljump
+- Walljumps können an normalen Wänden 
+
 
 
 
