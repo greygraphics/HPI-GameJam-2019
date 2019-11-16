@@ -5,6 +5,7 @@ export var ACCELLERATION : float = 4
 export var AIR_ACC_FACTOR : float = 0.7
 export var SLIDE_FACTOR : float = 0.5
 export var JUMP_HEIGHT : float = 200
+export var DOUBLE_JUMP_HEIGHT : float = 100
 export var JUMP_SPEED_FACTOR : float = 0.2
 export var WALLSLIDE_FACTOR : float = 0.1
 export var GRAVITY : float = 8
@@ -20,6 +21,7 @@ var velocity : Vector2 = Vector2()
 var wallDir = 0
 var moveDir = 0
 var state = STATES.FLOOR
+var doubleJumpReady = true
 
 func _process(delta):
 	$RichTextLabel.text = STATES.keys()[state]
@@ -47,7 +49,7 @@ func _physics_process(delta):
 	# hover
 
 	print(gravityScale)
-	if _jump() or _walljump():
+	if _jump() or _doubleJump() or _walljump():
 		print("No gravity!")
 	else:
 		velocity.y += gravityScale * GRAVITY
@@ -76,17 +78,28 @@ func _wallslide():
 	return 1
 	
 func _jump():
-	if !Input.is_action_just_pressed("ui_up") or state != STATES.FLOOR:
-		return
+	if !Input.is_action_just_pressed("ui_up") or state != STATES.FLOOR or !_canJump():
+		return false
 	state = STATES.AIR
 	velocity.y = -JUMP_HEIGHT
+	if $Timer.is_stopped():
+		$Timer.start()
+	return true
+
+func _doubleJump():
+	if !Input.is_action_just_pressed("ui_up") or state != STATES.AIR:
+		return false
+	if !doubleJumpReady:
+		return false 
+	doubleJumpReady = false
+	velocity.y = -DOUBLE_JUMP_HEIGHT
 	if $Timer.is_stopped():
 		$Timer.start()
 	return true
 	
 func _walljump():
 	if !Input.is_action_just_pressed("ui_up") or wallDir == 0 or !_canJump():
-		return
+		return false
 	var dx = WALL_JUMP_SPEED.x * -wallDir
 	velocity.x = dx
 	velocity.y = -WALL_JUMP_SPEED.y
@@ -98,6 +111,7 @@ func _walljump():
 func _updateState():
 	if is_on_floor():
 		state = STATES.FLOOR
+		doubleJumpReady = true
 	elif wallDir != 0:
 		state = STATES.WALL
 	else:
