@@ -1,6 +1,7 @@
 extends Node2D
 
 onready var animations = [$Arms, $WheelChair/Wheel]
+onready var wheelSpeed = $WheelChair/Wheel.speed_scale
 
 func _setDirection(direction):
 	if direction < 0:
@@ -13,5 +14,11 @@ func _setRolling(isRolling):
 		var animSprite : AnimatedSprite = animation
 		animSprite._set_playing(isRolling)
 		
-func _setWallSlide(isWallSliding):
-	$WheelChair/Dust._set_playing(isWallSliding)
+func _setWallDirection(direction):
+	if direction == 0:
+		$WheelChair/Wheel.scale.x = 1
+		$WheelChair/Wheel.speed_scale = wheelSpeed
+		return
+	scale.x = -direction
+	$WheelChair/Wheel.scale.x = -1
+	$WheelChair/Wheel.speed_scale = wheelSpeed * 2
